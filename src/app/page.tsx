@@ -1,103 +1,222 @@
+"use client";
+import Header from "@/components/header";
+
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { SignupSchema } from "@/schemas/signupSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { IoIosEye, IoIosEyeOff } from "react-icons/io";
 import Image from "next/image";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import axios, { AxiosError } from "axios";
+import { z } from "zod";
+import { ApiResponse } from "@/types/ApiResponse";
+import toast from "react-hot-toast";
+import ProcessingOverlay from "@/components/processing";
+
+type FormData = z.infer<typeof SignupSchema>;
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [showPassword, setShowPassword] = useState(false);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const form = useForm<FormData>({
+    resolver: zodResolver(SignupSchema),
+    defaultValues: {
+      fname: "",
+      lname: "",
+      email: "",
+      password: "",
+      confirm_password: "",
+    },
+  });
+
+  const onSubmit = async (data: FormData) => {
+    try {
+      const response = await axios.post<ApiResponse>(
+        "/api/user/create_account",
+        data
+      );
+
+      if (response.data.success) {
+        toast.success(response.data.message);
+      }
+    } catch (error) {
+      const axiosError = error as AxiosError<ApiResponse>;
+      toast.error(axiosError.response?.data.message as string);
+    }
+  };
+  return (
+    <div className="w-full bg-gradient-to-tr from-amber-100 via-sky-100 to-violet-50 min-h-screen flex items-center justify-center p-1">
+      <div className="w-full max-w-3xl border-3 rounded-lg border-green-300">
+        <Header />
+        <div className="w-full">
+          <div className="flex flex-col items-center justify-center py-3 px-2">
+            <h3 className="text-4xl   text-center w-full  bg-blue-900 text-white rounded-2xl mx-2 font-[900] py-2 border-b-2 border-t-2 border-green-300/40">
+              Registration
+            </h3>
+            <div className="w-full mt-3 flex justify-center">
+              <h3 className="text-xl font-normal py-2 mx-1 w-full text-center bg-white  rounded-4xl ring-2 ring-amber-300/20">
+                Create account to begin
+              </h3>
+            </div>
+            <div className=" p-0 bg-gray-100 max-w-[650px] mx-auto w-full  rounded-2xl border  mt-4">
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)}>
+                  <div className="flex  p-2 md:mx-5 gap-2 flex-col">
+                    <div className="grid md:grid-cols-2 grid-cols-1 gap-2 w-full">
+                      <FormField
+                        control={form.control}
+                        name="fname"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className={`text-lg font-semibold`}>
+                              First Name*
+                            </FormLabel>
+                            <FormControl>
+                              <input
+                                type="text"
+                                {...field}
+                                className="text-input3"
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="lname"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className={`text-lg font-semibold`}>
+                              Last Name*
+                            </FormLabel>
+                            <FormControl>
+                              <input
+                                type="text"
+                                {...field}
+                                className="text-input3"
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <div className="w-full flex flex-col gap-2 justify-center">
+                      <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className={`text-lg font-semibold`}>
+                              Email Id (Login Id)*
+                            </FormLabel>
+                            <FormControl>
+                              <input
+                                type="text"
+                                {...field}
+                                className="text-input3"
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="password"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel
+                              className={`text-lg font-semibold ${
+                                form.formState.errors.password
+                                  ? "text-black"
+                                  : "text-black"
+                              }`}
+                            >
+                              Create Password*
+                            </FormLabel>
+                            <FormControl>
+                              <div className="relative">
+                                <input
+                                  type={showPassword ? "text" : "password"} // Toggle input type
+                                  {...field}
+                                  className="text-input3"
+                                />
+                                {showPassword ? (
+                                  <IoIosEyeOff
+                                    className="absolute top-3 right-2 cursor-pointer"
+                                    onClick={() =>
+                                      setShowPassword(!showPassword)
+                                    }
+                                    title="Hide Password"
+                                  />
+                                ) : (
+                                  <IoIosEye
+                                    className="absolute top-3 right-2 cursor-pointer"
+                                    onClick={() =>
+                                      setShowPassword(!showPassword)
+                                    }
+                                    title="View Password"
+                                  />
+                                )}
+                              </div>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="confirm_password"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel
+                              className={`text-lg font-semibold ${
+                                form.formState.errors.confirm_password
+                                  ? "text-black"
+                                  : "text-black"
+                              }`}
+                            >
+                              Confirm Password*
+                            </FormLabel>
+                            <FormControl>
+                              <input
+                                type="password"
+                                {...field}
+                                className="text-input3"
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <div className="flex w-full justify-start mt-3">
+                      <Button
+                        type="submit"
+                        className="mx-auto text-lg bg-green-900 hover:bg-green-600 font-bold px-6 py-2 cursor-pointer"
+                      >
+                        Submit
+                      </Button>
+                    </div>
+                  </div>
+                </form>
+              </Form>
+            </div>
+            {form.formState.isSubmitting && <ProcessingOverlay />}
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
     </div>
   );
 }
