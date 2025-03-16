@@ -24,7 +24,7 @@ export async function SendConfiramtionEmail(id: string): Promise<ApiResponse> {
       to: userData.email,
       subject: "Registration Confirmation - FERTIVISION 2026",
       html: `<div
-        style='max-width:800px; width:90%; background-color: #620556; margin:10px auto; border: 1px solid #ccc; font-family:  "Lucida sans",  sans-serif; font-size:1rem;padding:10px;'>
+        style='max-width:800px; width:90%; background-color: #257004; margin:10px auto; border: 1px solid #ccc; font-family:  "Lucida sans",  sans-serif; font-size:1rem;padding:10px;'>
         <img src="https://fertivision2025.vercel.app/img/header.jpg" alt="" style="width: 100%;">
         <div style="background-color: #fff; border-radius: 10px; padding: 10px; margin-top: 10px;">
          <p><b>Dear ${userData.fullname}</b></p>
@@ -34,7 +34,7 @@ export async function SendConfiramtionEmail(id: string): Promise<ApiResponse> {
             <p>You are requested to kindly use the same for any future correspondence. Also, please keep a track of
                 emails from this mail ID.</p>
 
-            <h3 style="padding: 5px 7px; background-color: #620556; color: #fff;">REGISTRATION DETAILS</h3>
+            <h3 style="padding: 5px 7px; background-color: #257004; color: #fff;">REGISTRATION DETAILS</h3>
              <table border="1" cellspacing="0" cellpadding="5">
                 <tr>
                     <td><b>Registration Type</b></td>
@@ -64,7 +64,7 @@ export async function SendConfiramtionEmail(id: string): Promise<ApiResponse> {
                 </tr>
             </table>
              <div>
-                <h4 style='padding: 5px 7px; background-color: #620556; color: #fff;'>ACCOMPAYING PERSON DETAILS</h4>
+                <h4 style='padding: 5px 7px; background-color: #257004; color: #fff;'>ACCOMPAYING PERSON DETAILS</h4>
                   ${
                     userData.no_of_accompany != 0
                       ? `<table border="1" cellspacing="0" cellpadding="5" style="width:100%">
@@ -91,7 +91,7 @@ export async function SendConfiramtionEmail(id: string): Promise<ApiResponse> {
                     
             </div>
             <div>
-                <h4 style="padding: 5px 7px; background-color: #620556; color: #fff;">PAYMENT DETAILS</h4>
+                <h4 style="padding: 5px 7px; background-color: #257004; color: #fff;">PAYMENT DETAILS</h4>
                     <table border="1" cellspacing="0" cellpadding="5">
                         <tr>
                             <td><b>Total Amount</b></td>
