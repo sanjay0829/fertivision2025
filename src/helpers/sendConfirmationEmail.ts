@@ -19,16 +19,16 @@ export async function SendConfiramtionEmail(id: string): Promise<ApiResponse> {
     }
 
     const response = sgMail.send({
-      from: { email: "info@groupthink.events", name: "AICOG 2026" },
+      from: { email: "info@groupthink.events", name: "FERTIVISION 2026" },
       bcc: { email: "sanjaymarki@gmail.com" },
       to: userData.email,
-      subject: "Registration Confirmation - AICOG 2026",
+      subject: "Registration Confirmation - FERTIVISION 2026",
       html: `<div
         style='max-width:800px; width:90%; background-color: #620556; margin:10px auto; border: 1px solid #ccc; font-family:  "Lucida sans",  sans-serif; font-size:1rem;padding:10px;'>
-        <img src="https://dummy.groupthink.events/img/header.jpg" alt="" style="width: 100%;">
+        <img src="https://fertivision2025.vercel.app/img/header.jpg" alt="" style="width: 100%;">
         <div style="background-color: #fff; border-radius: 10px; padding: 10px; margin-top: 10px;">
          <p><b>Dear ${userData.fullname}</b></p>
-         <p>Thank you for registering at <b>AICOG 2026, New Delhi, 68th All India Congress of Obstetrics &
+         <p>Thank you for registering at <b>FERTIVISION 2026, New Delhi, 68th All India Congress of Obstetrics &
                     Gynaecology</b><b> to be held from 14th Jan to 18th Jan 2026.</b> Please find below your
                 registration details.</p>
             <p>You are requested to kindly use the same for any future correspondence. Also, please keep a track of
@@ -47,20 +47,16 @@ export async function SendConfiramtionEmail(id: string): Promise<ApiResponse> {
                     <td>${userData.reg_no}</td>
                 </tr>
                 <tr>
-                    <td><b>Workshop </b>(14th Jan)</td>
+                    <td><b>Pre Lunch Workshop </b></td>
                     <td>:</td>
-                    <td>${userData.workshop}</td>
+                    <td>${userData.pre_workshop}</td>
                 </tr>
                 <tr>
-                    <td><b>CG Saraiya CME</b>(15th Jan)</td>
+                    <td><b>Post Lunct Workshop</td>
                     <td>:</td>
-                    <td>${userData.cme}</td>
+                    <td>${userData.post_workshop}</td>
                 </tr>
-                <tr>
-                    <td><b>Banquet Dinner</b>(17th Jan)</td>
-                    <td>:</td>
-                    <td>${userData.banquet}</td>
-                </tr>
+               
                 <tr>
                     <td><b>No. of Accompaying Per.</b></td>
                     <td>:</td>
@@ -76,16 +72,16 @@ export async function SendConfiramtionEmail(id: string): Promise<ApiResponse> {
                         <td>S.no</td>
                         <td>Name</td>
                         <td>Age</td>
-                        <td>Banquet</td>
+                       <td>Gender</td>
                     <tr>
                     ${userData.accompany_persons
                       .map(
                         (item, index) =>
                           `<tr>
                       <td>${index + 1}</td> 
-                      <td>${userData.fullname}</td>   
-                      <td>${userData.age}</td>   
-                     <td>${userData.banquet}</td>   
+                      <td>${item.accompany_name}</td>   
+                      <td>${item.accompany_age}</td>   
+                     <td>${item.accompany_gender}</td>   
                       </tr>`
                       )
                       .join("")}
@@ -112,12 +108,12 @@ export async function SendConfiramtionEmail(id: string): Promise<ApiResponse> {
                     </table>
             </div>  
             <p>Should you require any further clarification, please write to us at registration@aicogmumbai2026.com</p>
-            <p>Looking forward to welcoming you at <b>AICOG 2026, New Delhi</b></p>
+            <p>Looking forward to welcoming you at <b>FERTIVISION 2026, New Delhi</b></p>
             <br>
             <p>
                 <b>Thanks & Regards</b><br>
                 Conference Secretariat <br>
-                AICOG 2026
+                FERTIVISION 2026
             </p>
         </div>
     </div>       

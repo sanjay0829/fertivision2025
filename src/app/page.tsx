@@ -21,6 +21,7 @@ import { z } from "zod";
 import { ApiResponse } from "@/types/ApiResponse";
 import toast from "react-hot-toast";
 import ProcessingOverlay from "@/components/processing";
+import Link from "next/link";
 
 type FormData = z.infer<typeof SignupSchema>;
 
@@ -212,6 +213,17 @@ export default function Home() {
                   </div>
                 </form>
               </Form>
+              <div className="w-full flex justify-end my-2">
+                <p className="p-1 bg-pink-100">
+                  Already Resistered?{" "}
+                  <Link
+                    href={"/login"}
+                    className="text-blue-500 hover:text-sky-800"
+                  >
+                    Click here
+                  </Link>
+                </p>
+              </div>
             </div>
             {form.formState.isSubmitting && <ProcessingOverlay />}
           </div>
