@@ -40,7 +40,7 @@ const Profile = () => {
 
   useEffect(() => {
     if (userData) {
-      if (!userData?.fullname || userData?.fullname == "") {
+      if (!userData?.reg_category || userData?.reg_category == "") {
         console.log(userData?.fullname);
         router.push("/register");
       }

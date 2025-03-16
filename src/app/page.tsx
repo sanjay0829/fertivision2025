@@ -22,11 +22,13 @@ import { ApiResponse } from "@/types/ApiResponse";
 import toast from "react-hot-toast";
 import ProcessingOverlay from "@/components/processing";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 type FormData = z.infer<typeof SignupSchema>;
 
 export default function Home() {
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
 
   const form = useForm<FormData>({
     resolver: zodResolver(SignupSchema),
@@ -48,6 +50,7 @@ export default function Home() {
 
       if (response.data.success) {
         toast.success(response.data.message);
+        router.push("/profile");
       }
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
