@@ -218,7 +218,7 @@ export default function Home() {
               </Form>
               <div className="w-full flex justify-end my-2">
                 <p className="p-1 bg-pink-100">
-                  Already Resistered?{" "}
+                  Already have an account?{" "}
                   <Link
                     href={"/login"}
                     className="text-blue-500 hover:text-sky-800"
