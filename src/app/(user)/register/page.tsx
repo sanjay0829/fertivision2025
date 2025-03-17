@@ -295,7 +295,7 @@ const Register = () => {
           formData.append(key, String(value));
         }
       });
-      if (data.reg_category == "Post Graduate") {
+      if (data.reg_category == "PG Students") {
         formData.append(
           "pg_file",
           data.pg_certificate_file ? data.pg_certificate_file : ""

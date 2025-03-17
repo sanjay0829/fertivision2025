@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 import fs from "fs";
 import UserModel from "@/models/user";
+import { v2 as cloudinary } from "cloudinary";
 
 const uploadDirPG = path.join(process.cwd(), "public", "uploads/pg");
 if (!fs.existsSync(uploadDirPG)) {
@@ -13,6 +14,17 @@ if (!fs.existsSync(uploadDirPG)) {
 const uploadDirSenior = path.join(process.cwd(), "public", "uploads/senior");
 if (!fs.existsSync(uploadDirSenior)) {
   fs.mkdirSync(uploadDirSenior, { recursive: true }); // Create directory if it doesn't exist
+}
+
+cloudinary.config({
+  cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET_KEY,
+});
+
+interface CloudinaryUploadresult {
+  public_id: string;
+  [key: string]: any;
 }
 
 //Register User /Update user details
@@ -59,6 +71,7 @@ export async function POST(request: NextRequest) {
     }
 
     const file = fileData.get("pg_file") as File;
+    console.log(file);
 
     if (file) {
       console.log(file.name);
@@ -67,8 +80,27 @@ export async function POST(request: NextRequest) {
       const bytes = await file.arrayBuffer();
       const buffer = Buffer.from(bytes);
       const filename = userExists.reg_no + fileExt;
-      const filepath = path.join(uploadDirPG, filename);
-      fs.writeFileSync(filepath, buffer);
+      // const filepath = path.join(uploadDirPG, filename);
+      // fs.writeFileSync(filepath, buffer);
+
+      const result = await new Promise<CloudinaryUploadresult>(
+        (resolve, reject) => {
+          const uploadStream = cloudinary.uploader.upload_stream(
+            {
+              folder: "Fertivision",
+              public_id: filename,
+              upload_preset: "rqfvn6kd",
+              resource_type: "raw",
+            },
+            (error, result) => {
+              if (error) reject(error);
+              else resolve(result as CloudinaryUploadresult);
+            }
+          );
+          uploadStream.end(buffer);
+        }
+      );
+      console.log(result);
 
       await UserModel.findByIdAndUpdate(userId, { pg_certificate: filename });
     }
