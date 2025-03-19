@@ -123,9 +123,9 @@ export async function POST(request: NextRequest) {
       userId,
       {
         title: fileData.get("title"),
-        fullname: fileData.get("fname") + " " + fileData.get("lname"),
-        fname: fileData.get("fname"),
-        lname: fileData.get("lname"),
+        fullname: fileData.get("fullname"),
+        // fname: fileData.get("fname"),
+        // lname: fileData.get("lname"),
         reg_category: fileData.get("reg_category"),
         email: fileData.get("email"),
         mobile: fileData.get("mobile"),

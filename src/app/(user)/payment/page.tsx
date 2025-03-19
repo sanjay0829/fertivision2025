@@ -38,7 +38,10 @@ const Paymentpage = () => {
   }, []);
   useEffect(() => {
     if (userData) {
-      const total = userData?.conf_amount + userData?.accompany_amount;
+      const total =
+        userData?.conf_amount +
+        userData?.accompany_amount +
+        userData.workshop_amount;
 
       setAmountTotal(total);
     }
@@ -177,10 +180,21 @@ const Paymentpage = () => {
                       {userData?.conf_amount}
                     </td>
                   </tr>
+                  <tr>
+                    <td className="border border-blue-400 p-2 font-semibold">
+                      Workshop Amount
+                    </td>
+                    <td className="border border-blue-400 p-2 font-semibold text-center">
+                      {userData?.currency == "USD" ? "$" : "₹"}
+                    </td>
+                    <td className="border border-blue-400 p-2">
+                      {userData?.workshop_amount}
+                    </td>
+                  </tr>
 
                   <tr>
                     <td className="border border-blue-400 flex justify-between p-2 font-semibold">
-                      Accompany Amount{" "}
+                      Accompanying Person Amount{" "}
                       <span className="bg-yellow-100 ml-3 px-2">
                         X {userData?.no_of_accompany}
                       </span>

@@ -33,8 +33,8 @@ export default function Home() {
   const form = useForm<FormData>({
     resolver: zodResolver(SignupSchema),
     defaultValues: {
-      fname: "",
-      lname: "",
+      fullname: "",
+      //lname: "",
       email: "",
       password: "",
       confirm_password: "",
@@ -75,33 +75,14 @@ export default function Home() {
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
                   <div className="flex  p-2 md:mx-5 gap-2 flex-col">
-                    <div className="grid md:grid-cols-2 grid-cols-1 gap-2 w-full">
+                    <div className="grid md:grid-cols-1 grid-cols-1 gap-2 w-full">
                       <FormField
                         control={form.control}
-                        name="fname"
+                        name="fullname"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel className={`text-lg font-semibold`}>
-                              First Name*
-                            </FormLabel>
-                            <FormControl>
-                              <input
-                                type="text"
-                                {...field}
-                                className="text-input3"
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="lname"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className={`text-lg font-semibold`}>
-                              Last Name*
+                              Full Name*
                             </FormLabel>
                             <FormControl>
                               <input

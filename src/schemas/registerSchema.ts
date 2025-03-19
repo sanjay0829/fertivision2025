@@ -10,14 +10,14 @@ const ACCEPTED_IMAGE_TYPES = [
 export const RegisterSchema = z
   .object({
     title: z.string().min(1, "Title is required"),
-    fname: z
+    fullname: z
       .string()
-      .min(1, "First Name is required")
+      .min(1, "Name is required")
       .max(50, "Name must be less tha 50 character"),
-    lname: z
-      .string()
-      .min(1, "Last Name is required")
-      .max(50, "Name must be less tha 50 character"),
+    // lname: z
+    //   .string()
+    //   .min(1, "Last Name is required")
+    //   .max(50, "Name must be less tha 50 character"),
     reg_category: z.string().min(1, "Registration Category  is required"),
     email: z.string().email({ message: "please enter a valid email id" }),
     mobile: z

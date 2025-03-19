@@ -49,8 +49,8 @@ const Register = () => {
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
       title: "",
-      fname: "",
-      lname: "",
+      fullname: "",
+      //lname: "",
       email: "",
       mobile: "",
       company: "",
@@ -116,8 +116,8 @@ const Register = () => {
   useEffect(() => {
     form.reset({
       title: userData?.title || "",
-      fname: userData?.fname,
-      lname: userData?.lname,
+      fullname: userData?.fullname,
+      //lname: userData?.lname,
       email: userData?.email,
       mobile: userData?.mobile,
       company: userData?.company,
@@ -205,13 +205,15 @@ const Register = () => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [conferenceAmount, setConferenceAmount] = useState(0);
   const [accompanyAmount, setAccompanyAmount] = useState(0);
+  const [workshopAmount, setWorkshopAmount] = useState(0);
 
   const [currency, setCurrency] = useState("INR");
 
   const [accbanquetChanged, setAccbanquetChanged] = useState(false);
 
   const [accompanyVisible, setAccompanyVisible] = useState(true);
-
+  const preWorkshop = form.watch("pre_workshop");
+  const postWorkshop = form.watch("post_workshop");
   const categorySelected = form.watch("reg_category");
   const countrySelected = form.watch("country");
   const accompanyselected = form.watch("accompany_persons", []);
@@ -253,6 +255,13 @@ const Register = () => {
       (cat) => cat.category_name === categorySelected
     );
 
+    let workshopTotal = 0;
+    if (preWorkshop != "" || postWorkshop != "") {
+      workshopTotal = 5000;
+    }
+    setWorkshopAmount(workshopTotal);
+    form.setValue("workshop_amount", workshopTotal);
+
     const accompanyTotal =
       selectedFamilyCount > 0 ? category?.accompany_amount || 0 : 0;
 
@@ -265,7 +274,9 @@ const Register = () => {
     let finalAmount = 0;
 
     finalAmount =
-      (category?.conf_amount || 0) + accompanyTotal * selectedFamilyCount;
+      (category?.conf_amount || 0) +
+      accompanyTotal * selectedFamilyCount +
+      workshopTotal;
 
     setTotalAmount(finalAmount);
     form.setValue("total_amount", finalAmount);
@@ -273,7 +284,8 @@ const Register = () => {
     console.log("totalAmount2", totalAmount);
   }, [
     categorySelected,
-
+    preWorkshop,
+    postWorkshop,
     selectedFamilyCount,
     form.setValue,
     accbanquetChanged,
@@ -505,26 +517,11 @@ const Register = () => {
             <div className="grid md:grid-cols-2 grid-cols-1 gap-3">
               <FormField
                 control={form.control}
-                name="fname"
+                name="fullname"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className={`text-lg font-semibold `}>
                       First Name*
-                    </FormLabel>
-                    <FormControl>
-                      <input type="text" {...field} className="text-input3" />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="lname"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className={`text-lg font-semibold `}>
-                      Last Name*
                     </FormLabel>
                     <FormControl>
                       <input type="text" {...field} className="text-input3" />
@@ -952,8 +949,6 @@ const Register = () => {
                             <option value="0">None</option>
                             <option>1</option>
                             <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
                           </select>
                         </FormControl>
                         <FormMessage />
@@ -1093,13 +1088,30 @@ const Register = () => {
                 <table className="w-full font-bold text-lg">
                   <tbody>
                     <tr>
-                      <td className="px-2">Conference Amount :</td>
+                      <td className="px-2">
+                        Conference Amount (13<sup>th</sup> & 14<sup>th</sup>{" "}
+                        Dec) :
+                      </td>
                       <td>
                         {currency == "INR" ? "₹" : "$"} {conferenceAmount}
                       </td>
                     </tr>
                     <tr>
-                      <td className="px-2">Accompany Amount :</td>
+                      <td className="px-2">
+                        Workshop Amount (12<sup>th</sup> Dec) :
+                      </td>
+                      <td>
+                        {currency == "INR" ? "₹" : "$"} {workshopAmount}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="px-2 py-1">
+                        Accompanying Person Amount{" "}
+                        <span className="p-1 bg-amber-100">
+                          {" "}
+                          (x {selectedFamilyCount}) :
+                        </span>
+                      </td>
                       <td>
                         {currency == "INR" ? "₹" : "$"} {accompanyAmount}
                       </td>
@@ -1111,6 +1123,14 @@ const Register = () => {
                         <span>
                           {currency == "INR" ? "₹" : "$"} {totalAmount}
                         </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        colSpan={2}
+                        className="bg-green-500 text-right text-white text-sm"
+                      >
+                        *3.5% bank charge will be added
                       </td>
                     </tr>
                   </tbody>

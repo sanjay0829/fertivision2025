@@ -86,14 +86,14 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`print:hidden max-w-screen-2xl flex rounded-t-md justify-between items-center min-h-14 z-10 sticky top-0 mx-auto md:px-6 py-2 px-4 ${
+      className={`print:hidden max-w-screen-2xl flex rounded-t-md mb-1 justify-between items-center min-h-14 z-10 sticky top-0 mx-auto md:px-6 py-2 px-4 ${
         sticky
           ? "shadow-sm bg-gradient-to-r from-green-700 to-blue-700 z-30 text-black sticky"
           : "bg-gradient-to-r from-green-800 to-blue-800 text-black"
       }`}
     >
       <div className="p-1">
-        <img src="/img/logo.png" alt="" className="max-w-[130px]" />
+        <img src="/img/logo.png" alt="" className="max-w-[180px]" />
       </div>
       <div className="w-80 flex justify-end relative " ref={dropdownRef}>
         <div className=" inline-block  bg-sky-100 px-2 py-1 rounded-lg">
