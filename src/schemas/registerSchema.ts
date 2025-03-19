@@ -97,7 +97,7 @@ export const RegisterSchema = z
   })
   .superRefine((data, ctx) => {
     if (
-      data.reg_category === "Post Graduate" &&
+      data.reg_category === "PG Students" &&
       (!data.pg_certificate_file || data.pg_certificate_file.length === 0)
     ) {
       ctx.addIssue({
