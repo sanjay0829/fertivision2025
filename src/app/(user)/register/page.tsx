@@ -871,7 +871,7 @@ const Register = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className={`text-lg font-semibold `}>
-                      Pre Lunch Workshop
+                      Pre Lunch Workshop (9:00AM to 1:00PM)
                     </FormLabel>
                     <FormControl className="w-full">
                       <select {...field} className="text-input3">
@@ -896,7 +896,7 @@ const Register = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className={`text-lg font-semibold `}>
-                      Post Lunch Workshop
+                      Post Lunch Workshop (2:00PM to 6:00PM)
                     </FormLabel>
                     <FormControl className="w-full">
                       <select {...field} className="text-input3">
@@ -1130,7 +1130,7 @@ const Register = () => {
                         colSpan={2}
                         className="bg-green-500 text-right text-white text-sm"
                       >
-                        *3.5% bank charge will be added
+                        *Bank Convenience Fee @3.5%
                       </td>
                     </tr>
                   </tbody>
