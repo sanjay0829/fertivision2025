@@ -126,4 +126,21 @@ export const RegisterSchema = z
         path: ["member_no"],
       });
     }
+    if (
+      data.reg_category === "Only Workshop Registration" &&
+      data.pre_workshop == "" &&
+      data.post_workshop == ""
+    ) {
+      ctx.addIssue({
+        code: "custom",
+        message: "Please select at least one workshop",
+        path: ["pre_workshop"],
+      });
+
+      ctx.addIssue({
+        code: "custom",
+        message: "Please select at least one workshop",
+        path: ["post_workshop"],
+      });
+    }
   });

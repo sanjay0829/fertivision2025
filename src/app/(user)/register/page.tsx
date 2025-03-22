@@ -257,7 +257,7 @@ const Register = () => {
 
     let workshopTotal = 0;
     if (preWorkshop != "" || postWorkshop != "") {
-      workshopTotal = 5000;
+      workshopTotal = category?.workshop_amount || 0;
     }
     setWorkshopAmount(workshopTotal);
     form.setValue("workshop_amount", workshopTotal);
