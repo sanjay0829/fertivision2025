@@ -133,7 +133,8 @@ const Register = () => {
       no_of_accompany: userData?.no_of_accompany || 0,
       pre_workshop: userData?.pre_workshop,
       post_workshop: userData?.post_workshop,
-
+      accomodation_type: userData?.accomodation_type,
+      accomodation_amount: userData?.accomodation_amount,
       total_amount: userData?.total_amount || 0,
       accompany_amount: userData?.accompany_amount || 0,
       workshop_amount: userData?.workshop_amount || 0,
