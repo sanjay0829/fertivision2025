@@ -145,7 +145,8 @@ export async function POST(request: NextRequest) {
         no_of_accompany: fileData.get("no_of_accompany"),
         pre_workshop: fileData.get("pre_workshop"),
         post_workshop: fileData.get("post_workshop"),
-
+        accomodation_type: fileData.get("accomodation_type"),
+        accomodation_amount: fileData.get("accomodation_amount"),
         conf_amount: fileData.get("conf_amount"),
         cme_amount: fileData.get("cme_amount"),
         accompany_amount: fileData.get("accompany_amount"),

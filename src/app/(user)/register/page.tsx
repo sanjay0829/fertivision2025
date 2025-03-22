@@ -206,6 +206,7 @@ const Register = () => {
   const [conferenceAmount, setConferenceAmount] = useState(0);
   const [accompanyAmount, setAccompanyAmount] = useState(0);
   const [workshopAmount, setWorkshopAmount] = useState(0);
+  const [accomodationAmount, setAccomodationAmount] = useState(0);
 
   const [currency, setCurrency] = useState("INR");
 
@@ -216,6 +217,7 @@ const Register = () => {
   const postWorkshop = form.watch("post_workshop");
   const categorySelected = form.watch("reg_category");
   const countrySelected = form.watch("country");
+  const accomodationSelected = form.watch("accomodation_type");
   const accompanyselected = form.watch("accompany_persons", []);
 
   useEffect(() => {
@@ -271,12 +273,41 @@ const Register = () => {
     setAccompanyAmount(accompanyTotal * selectedFamilyCount);
     form.setValue("accompany_amount", accompanyTotal * selectedFamilyCount);
 
+    let accomodationTotal = 0;
+
+    if (accomodationSelected != "") {
+      if (categorySelected == "Foreign Delegates") {
+        accomodationTotal =
+          accomodationSelected == "Twin Sharing"
+            ? 120
+            : accomodationSelected == "Single Room"
+            ? 220
+            : accomodationSelected == "Double Room"
+            ? 180
+            : 0;
+      } else {
+        accomodationTotal =
+          accomodationSelected == "Twin Sharing"
+            ? 5000
+            : accomodationSelected == "Single Room"
+            ? 10000
+            : accomodationSelected == "Double Room"
+            ? 8000
+            : 0;
+      }
+    }
+
+    setAccomodationAmount(accomodationTotal);
+
+    form.setValue("accomodation_amount", accomodationTotal);
+
     let finalAmount = 0;
 
     finalAmount =
       (category?.conf_amount || 0) +
       accompanyTotal * selectedFamilyCount +
-      workshopTotal;
+      workshopTotal +
+      accomodationTotal;
 
     setTotalAmount(finalAmount);
     form.setValue("total_amount", finalAmount);
@@ -287,6 +318,7 @@ const Register = () => {
     preWorkshop,
     postWorkshop,
     selectedFamilyCount,
+    accomodationSelected,
     form.setValue,
     accbanquetChanged,
     accompanyselected,
@@ -1076,6 +1108,41 @@ const Register = () => {
               ))}
             </AnimatePresence>
 
+            <div className="bg-green-900 py-3 rounded-lg w-full my-2">
+              <h2 className="text-2xl text-center font-semibold text-white">
+                Select Accomodation (if required)
+              </h2>
+            </div>
+            <div className="grid md:grid-cols-2 grid-cols-1 gap-3">
+              <FormField
+                control={form.control}
+                name="accomodation_type"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className={`text-lg font-semibold `}>
+                      Accomodation Type
+                    </FormLabel>
+                    <FormControl className="w-full">
+                      <select {...field} className="text-input3">
+                        <option value={""}>Select</option>
+                        <option value={"Twin Sharing"}>
+                          Twin Sharing Per Person (Two Person Sharing a Common
+                          Room)
+                        </option>
+                        <option value={"Single Room"}>
+                          Single Room (1 Person)
+                        </option>
+                        <option value={"Double Room"}>
+                          Double Room (2 Persons)
+                        </option>
+                      </select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
             <div className="p-1">
               <hr />
             </div>
@@ -1116,6 +1183,14 @@ const Register = () => {
                         {currency == "INR" ? "₹" : "$"} {accompanyAmount}
                       </td>
                     </tr>
+                    {accomodationSelected != "" && (
+                      <tr>
+                        <td className="px-2 py-1">Accomodation Amount :</td>
+                        <td>
+                          {currency == "INR" ? "₹" : "$"} {accomodationAmount}
+                        </td>
+                      </tr>
+                    )}
 
                     <tr className="bg-gray-700 text-white">
                       <td className="px-2">Total Amount :</td>

@@ -32,6 +32,7 @@ export const RegisterSchema = z
     pin: z.string().min(1, "Pincode is reuired"),
     address: z.string().min(1, "Address is required"),
     nationality: z.string(),
+    accomodation_type: z.string().optional(),
     no_of_accompany: z.number().min(0).max(3),
     accompany_persons: z
       .array(
@@ -50,6 +51,7 @@ export const RegisterSchema = z
     accompany_amount: z.number(),
     workshop_amount: z.number().default(0),
     cme_amount: z.number().default(0),
+    accomodation_amount: z.number().default(0),
     conf_amount: z.number(),
     currency: z.string(),
     pg_certificate_file: z

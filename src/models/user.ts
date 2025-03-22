@@ -46,11 +46,13 @@ export interface User extends Document {
   workshop: string;
   pre_workshop: string;
   post_workshop: string;
+  accomodation_type: string;
   no_of_accompany: number;
   accompany_persons: Accompany_Person[];
   payment_status: string;
   payment_date: Date;
   receipt_no: string;
+
   order_no: string;
   total_amount: number;
   conf_amount: number;
@@ -58,6 +60,7 @@ export interface User extends Document {
   cme_amount: number;
   workshop_amount: number;
   accompany_amount: number;
+  accomodation_amount: number;
   discount_amount: number;
   currency: string;
   coupon_code: string;
@@ -113,6 +116,7 @@ const UserSchema: Schema<User> = new Schema(
     workshop: { type: String, trim: true },
     pre_workshop: { type: String, trim: true },
     post_workshop: { type: String, trim: true },
+    accomodation_type: { type: String, trim: true },
     no_of_accompany: { type: Number, trim: true },
     accompany_persons: [AccompanySchema],
     payment_status: { type: String, trim: true, default: "Pending" },
@@ -125,6 +129,7 @@ const UserSchema: Schema<User> = new Schema(
     accompany_amount: { type: Number, trim: true },
     cme_amount: { type: Number, trim: true },
     workshop_amount: { type: Number, trim: true },
+    accomodation_amount: { type: Number, trim: true },
     discount_amount: { type: Number, trim: true },
     currency: { type: String, trim: true },
     coupon_code: { type: String, trim: true },

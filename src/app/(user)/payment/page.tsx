@@ -41,7 +41,8 @@ const Paymentpage = () => {
       const total =
         userData?.conf_amount +
         userData?.accompany_amount +
-        userData.workshop_amount;
+        userData.workshop_amount +
+        userData.accomodation_amount;
 
       setAmountTotal(total);
     }
@@ -204,6 +205,17 @@ const Paymentpage = () => {
                     </td>
                     <td className="border border-blue-400 p-2">
                       {userData?.accompany_amount}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="border border-blue-400 flex justify-between p-2 font-semibold">
+                      Accomodation Amount{" "}
+                    </td>
+                    <td className="border border-blue-400 p-2 font-semibold text-center">
+                      {userData?.currency == "USD" ? "$" : "₹"}
+                    </td>
+                    <td className="border border-blue-400 p-2">
+                      {userData?.accomodation_amount}
                     </td>
                   </tr>
                   <tr className="bg-black/80 text-white">
