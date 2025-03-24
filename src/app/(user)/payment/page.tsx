@@ -232,7 +232,7 @@ const Paymentpage = () => {
 
                   <tr className="bg-black/80 text-white">
                     <td className="border border-blue-400 p-2 font-bold">
-                      Bank Charge (3.5%)
+                      Bank Charge
                     </td>
                     <td className="border border-blue-400 p-2 font-semibold text-center">
                       {userData?.currency == "USD" ? "$" : "₹"}

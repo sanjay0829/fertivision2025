@@ -1320,7 +1320,7 @@ const Register = () => {
                         colSpan={2}
                         className="bg-green-500 text-right text-white text-sm"
                       >
-                        *Bank Convenience Fee @3.5%
+                        *Bank Convenience Fee will be extra
                       </td>
                     </tr>
                   </tbody>
