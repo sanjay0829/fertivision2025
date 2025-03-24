@@ -133,7 +133,8 @@ const Register = () => {
       no_of_accompany: userData?.no_of_accompany || 0,
       pre_workshop: userData?.pre_workshop,
       post_workshop: userData?.post_workshop,
-      accomodation_type: userData?.accomodation_type,
+      accomodation_type: userData?.accomodation_type || "",
+      room_type: userData?.room_type || "",
       accomodation_amount: userData?.accomodation_amount,
       total_amount: userData?.total_amount || 0,
       accompany_amount: userData?.accompany_amount || 0,
@@ -218,7 +219,8 @@ const Register = () => {
   const postWorkshop = form.watch("post_workshop");
   const categorySelected = form.watch("reg_category");
   const countrySelected = form.watch("country");
-  const accomodationSelected = form.watch("accomodation_type");
+  const accomodationSelected = form.watch("room_type");
+  const accomodationType = form.watch("accomodation_type");
   const accompanyselected = form.watch("accompany_persons", []);
 
   useEffect(() => {
@@ -278,23 +280,45 @@ const Register = () => {
 
     if (accomodationSelected != "") {
       if (categorySelected == "Foreign Delegates") {
-        accomodationTotal =
-          accomodationSelected == "Twin Sharing"
-            ? 120
-            : accomodationSelected == "Single Room"
-            ? 220
-            : accomodationSelected == "Double Room"
-            ? 180
-            : 0;
+        if (accomodationType == "2Night-3Days") {
+          accomodationTotal =
+            accomodationSelected == "Twin Sharing"
+              ? 120
+              : accomodationSelected == "Single Room"
+              ? 220
+              : accomodationSelected == "Double Room"
+              ? 180
+              : 0;
+        } else {
+          accomodationTotal =
+            accomodationSelected == "Twin Sharing"
+              ? 150
+              : accomodationSelected == "Single Room"
+              ? 150
+              : accomodationSelected == "Double Room"
+              ? 200
+              : 0;
+        }
       } else {
-        accomodationTotal =
-          accomodationSelected == "Twin Sharing"
-            ? 5000
-            : accomodationSelected == "Single Room"
-            ? 10000
-            : accomodationSelected == "Double Room"
-            ? 8000
-            : 0;
+        if (accomodationType == "2Night-3Days") {
+          accomodationTotal =
+            accomodationSelected == "Twin Sharing"
+              ? 20060
+              : accomodationSelected == "Single Room"
+              ? 37760
+              : accomodationSelected == "Double Room"
+              ? 40120
+              : 0;
+        } else {
+          accomodationTotal =
+            accomodationSelected == "Twin Sharing"
+              ? 30090
+              : accomodationSelected == "Single Room"
+              ? 56640
+              : accomodationSelected == "Double Room"
+              ? 60180
+              : 0;
+        }
       }
     }
 
@@ -320,10 +344,18 @@ const Register = () => {
     postWorkshop,
     selectedFamilyCount,
     accomodationSelected,
+    accomodationType,
     form.setValue,
     accbanquetChanged,
     accompanyselected,
   ]);
+
+  useEffect(() => {
+    if (accomodationType == "" || !accomodationType) {
+      form.setValue("room_type", "");
+    }
+  }, [accomodationType]);
+
   const router = useRouter();
 
   const { setUsername } = useAppContext();
@@ -1114,31 +1146,113 @@ const Register = () => {
                 Select Accomodation (if required)
               </h2>
             </div>
-            <div className="grid md:grid-cols-2 grid-cols-1 gap-3">
+            <div className="grid md:grid-cols-1 grid-cols-1 gap-3">
               <FormField
                 control={form.control}
                 name="accomodation_type"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className={`text-lg font-semibold `}>
-                      Accomodation Type
-                    </FormLabel>
-                    <FormControl className="w-full">
-                      <select {...field} className="text-input3">
-                        <option value={""}>Select</option>
-                        <option value={"Twin Sharing"}>
-                          Twin Sharing Per Person (Two Person Sharing a Common
-                          Room)
-                        </option>
-                        <option value={"Single Room"}>
-                          Single Room (1 Person)
-                        </option>
-                        <option value={"Double Room"}>
-                          Double Room (2 Persons)
-                        </option>
-                      </select>
+                    <FormControl>
+                      <div className="flex flex-col">
+                        <div>
+                          <h2 className="text-lg font-semibold">
+                            Choose Accomodation Type :
+                          </h2>
+                        </div>
+                        <div className="flex gap-3 items-center">
+                          <input
+                            type="checkbox"
+                            id="chk1"
+                            checked={field.value === "2Night-3Days"}
+                            onChange={() => {
+                              field.onChange(
+                                field.value === "2Night-3Days"
+                                  ? ""
+                                  : "2Night-3Days"
+                              );
+                            }}
+                            className="w-5 h-5 flex-shrink-0"
+                          />
+                          <Label htmlFor="chk1" className="text-lg">
+                            2 Nights/3 Days (Check In - 12 Dec, Check Out - 14
+                            Dec)
+                          </Label>
+                        </div>
+                        <div className="flex gap-3 items-center">
+                          <input
+                            type="checkbox"
+                            id="chk2"
+                            checked={field.value === "3Night-4Days"}
+                            onChange={() => {
+                              field.onChange(
+                                field.value === "3Night-4Days"
+                                  ? ""
+                                  : "3Night-4Days"
+                              );
+                            }}
+                            className="w-5 h-5 flex-shrink-0"
+                          />
+                          <Label htmlFor="chk2" className="text-lg">
+                            3 Nights/4 Days (Check In - 11 Dec, Check Out - 14
+                            Dec)
+                          </Label>
+                        </div>
+                      </div>
                     </FormControl>
-                    <FormMessage />
+
+                    <AnimatePresence mode="wait">
+                      {field.value && (
+                        <motion.div
+                          key="room-type" // Important for AnimatePresence
+                          initial={{
+                            height: 0,
+                            opacity: 0,
+                            overflow: "hidden",
+                          }}
+                          animate={{
+                            height: "auto",
+                            opacity: 1,
+                            transition: { duration: 0.6, ease: "easeInOut" },
+                          }}
+                          exit={{
+                            height: 0,
+                            opacity: 0,
+                            transition: { duration: 0.6, ease: "easeInOut" },
+                          }}
+                        >
+                          <FormField
+                            control={form.control}
+                            name="room_type"
+                            render={({ field: roomField }) => (
+                              <FormItem className="mt-4">
+                                <FormLabel className={`text-lg font-semibold`}>
+                                  Room Type :
+                                </FormLabel>
+                                <FormControl className="w-full">
+                                  <select
+                                    {...roomField}
+                                    className="text-input3 max-w-[400px]"
+                                  >
+                                    <option value={""}>Select</option>
+                                    <option value={"Twin Sharing"}>
+                                      Twin Sharing Per Person (Two Person
+                                      Sharing a Common Room)
+                                    </option>
+                                    <option value={"Single Room"}>
+                                      Single Room (1 Person)
+                                    </option>
+                                    <option value={"Double Room"}>
+                                      Double Room (2 Persons)
+                                    </option>
+                                  </select>
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </FormItem>
                 )}
               />

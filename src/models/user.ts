@@ -47,6 +47,7 @@ export interface User extends Document {
   pre_workshop: string;
   post_workshop: string;
   accomodation_type: string;
+  room_type: string;
   no_of_accompany: number;
   accompany_persons: Accompany_Person[];
   payment_status: string;
@@ -117,6 +118,7 @@ const UserSchema: Schema<User> = new Schema(
     pre_workshop: { type: String, trim: true },
     post_workshop: { type: String, trim: true },
     accomodation_type: { type: String, trim: true },
+    room_type: { type: String, trim: true },
     no_of_accompany: { type: Number, trim: true },
     accompany_persons: [AccompanySchema],
     payment_status: { type: String, trim: true, default: "Pending" },

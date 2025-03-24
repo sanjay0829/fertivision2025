@@ -33,6 +33,7 @@ export const RegisterSchema = z
     address: z.string().min(1, "Address is required"),
     nationality: z.string(),
     accomodation_type: z.string().optional(),
+    room_type: z.string().optional(),
     no_of_accompany: z.number().min(0).max(3),
     accompany_persons: z
       .array(
@@ -126,6 +127,16 @@ export const RegisterSchema = z
         code: "custom",
         message: "Membership number is required for IFS Members",
         path: ["member_no"],
+      });
+    }
+    if (
+      data.accomodation_type != "" &&
+      (!data.room_type || data.room_type === "")
+    ) {
+      ctx.addIssue({
+        code: "custom",
+        message: "Please select room type",
+        path: ["room_type"],
       });
     }
     if (

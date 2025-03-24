@@ -146,6 +146,7 @@ export async function POST(request: NextRequest) {
         pre_workshop: fileData.get("pre_workshop"),
         post_workshop: fileData.get("post_workshop"),
         accomodation_type: fileData.get("accomodation_type"),
+        room_type: fileData.get("room_type"),
         accomodation_amount: fileData.get("accomodation_amount"),
         conf_amount: fileData.get("conf_amount"),
         cme_amount: fileData.get("cme_amount"),
