@@ -8,7 +8,7 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) {
   await dbConnect();
   try {
-    const { fullname, email, password } = await request.json();
+    const { email, password } = await request.json();
 
     const userExists = await UserModel.findOne({ email }).collation({
       locale: "en",
@@ -35,7 +35,7 @@ export async function POST(request: Request) {
     const newUser = await UserModel.create({
       email,
       password,
-      fullname,
+      // fullname,
       reg_no,
     });
 

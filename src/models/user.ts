@@ -53,7 +53,6 @@ export interface User extends Document {
   payment_status: string;
   payment_date: Date;
   receipt_no: string;
-
   order_no: string;
   total_amount: number;
   conf_amount: number;

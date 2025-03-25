@@ -442,8 +442,13 @@ const Register = () => {
                       <select {...field} className="text-input3">
                         <option value=""> Select Category</option>
                         {categories?.map((item, index) => (
-                          <option key={item._id as string}>
-                            {item.category_name}
+                          <option
+                            key={item._id as string}
+                            value={item.category_name}
+                          >
+                            {item.category_name === "PG Students"
+                              ? `${item.category_name} (No Dinner)`
+                              : item.category_name}
                           </option>
                         ))}
                       </select>
