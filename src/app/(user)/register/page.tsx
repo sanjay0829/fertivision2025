@@ -1143,7 +1143,7 @@ const Register = () => {
 
             <div className="bg-green-900 py-3 rounded-lg w-full my-2">
               <h2 className="text-2xl text-center font-semibold text-white">
-                Select Accomodation (if required)
+                Select Accommodation (if required)
               </h2>
             </div>
             <div className="grid md:grid-cols-1 grid-cols-1 gap-3">
@@ -1156,7 +1156,7 @@ const Register = () => {
                       <div className="flex flex-col">
                         <div>
                           <h2 className="text-lg font-semibold">
-                            Choose Accomodation Type :
+                            Choose Accommodation Type :
                           </h2>
                         </div>
                         <div className="flex gap-3 items-center">
@@ -1300,7 +1300,7 @@ const Register = () => {
                     </tr>
                     {accomodationSelected != "" && (
                       <tr>
-                        <td className="px-2 py-1">Accomodation Amount :</td>
+                        <td className="px-2 py-1">Accommodation Amount :</td>
                         <td>
                           {currency == "INR" ? "₹" : "$"} {accomodationAmount}
                         </td>
