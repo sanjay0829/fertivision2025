@@ -1202,6 +1202,12 @@ const Register = () => {
                             Dec)
                           </Label>
                         </div>
+                        <div>
+                          <p className="text-sky-700">
+                            ( Note: Standard Check-In time is 1400 hrs and
+                            Check-Out time is 12 noon)
+                          </p>
+                        </div>
                       </div>
                     </FormControl>
 
