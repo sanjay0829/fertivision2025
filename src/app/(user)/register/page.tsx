@@ -591,7 +591,7 @@ const Register = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className={`text-lg font-semibold `}>
-                      First Name*
+                      Full Name*
                     </FormLabel>
                     <FormControl>
                       <input type="text" {...field} className="text-input3" />
