@@ -189,6 +189,27 @@ const Profile = () => {
         </div>
         <div className="p-2 bg-green-800 mt-2">
           <h2 className="font-bold text-white sm:text-xl text-lg ">
+            Accommodation Details
+          </h2>
+        </div>
+        <div className="grid sm:grid-cols-3 border border-gray-200 mt-2">
+          <div className="p-2 bg-green-200">
+            <h4 className="font-bold ">Accommodation Type</h4>
+          </div>
+          <div className="p-2 sm:col-span-2">
+            <p className="">{userData?.accomodation_type}</p>
+          </div>
+        </div>
+        <div className="grid sm:grid-cols-3 border border-gray-200 mt-2">
+          <div className="p-2 bg-green-200">
+            <h4 className="font-bold ">Room Type</h4>
+          </div>
+          <div className="p-2 sm:col-span-2">
+            <p className="">{userData?.room_type}</p>
+          </div>
+        </div>
+        <div className="p-2 bg-green-800 mt-2">
+          <h2 className="font-bold text-white sm:text-xl text-lg ">
             Payment Details
           </h2>
         </div>

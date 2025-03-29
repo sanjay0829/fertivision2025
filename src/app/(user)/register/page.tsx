@@ -931,7 +931,7 @@ const Register = () => {
             </div>
             <div className="bg-green-900 py-3 rounded-lg w-full my-2">
               <h2 className="text-2xl text-center font-semibold text-white">
-                Pre Conference Workshop (12<sup>th</sup> Dec 2025)
+                Pre Conference Workshop (12<sup>th</sup> Dec 2025){" "}
               </h2>
             </div>
             <div className="grid md:grid-cols-2 grid-cols-1 gap-3">
@@ -941,7 +941,8 @@ const Register = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className={`text-lg font-semibold `}>
-                      Pre Lunch Workshop (9:00AM to 1:00PM)
+                      Pre Lunch Workshop (9:00AM to 1:00PM){" "}
+                      <small>Please Select Anyone</small>
                     </FormLabel>
                     <FormControl className="w-full">
                       <select {...field} className="text-input3">
@@ -966,7 +967,8 @@ const Register = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className={`text-lg font-semibold `}>
-                      Post Lunch Workshop (2:00PM to 6:00PM)
+                      Post Lunch Workshop (2:00PM to 6:00PM){" "}
+                      <small>Please Select Anyone</small>
                     </FormLabel>
                     <FormControl className="w-full">
                       <select {...field} className="text-input3">
@@ -1046,7 +1048,7 @@ const Register = () => {
                 >
                   <div className="bg-pink-50">
                     <h2 className="text-lg font-semibold px-3 border-b-2 my-1 bg-sky-200">
-                      Accompany person {index + 1} details
+                      Accompanying Person {index + 1} details
                     </h2>
                     <div className="w-full gap-1 grid lg:grid-cols-4 md:grid-col-2 grid-cols-1 px-2 pb-2">
                       <FormField
@@ -1064,7 +1066,7 @@ const Register = () => {
                                   : "text-black"
                               }`}
                             >
-                              Accompany Name*
+                              Accompanying Name*
                             </FormLabel>
                             <FormControl>
                               <input
